@@ -9,10 +9,8 @@ import { Task } from './task.entity';
 export class TasksService {
   constructor(
     @InjectRepository(TasksRepository)
-    private tasksRepository: TasksRepository
-  ) { 
-
-  }
+    private tasksRepository: TasksRepository,
+  ) {}
 
   // private tasks: Task[] = [];
 
@@ -60,16 +58,6 @@ export class TasksService {
   //   return found;
   // }
 
-  async getTaskById(id: string) : Promise<Task> {
-    const found = await this.tasksRepository.findOne(id);
-
-    if(!found) {
-      throw new NotFoundException(`Task with ID "${id}" not found`);
-    }
-
-    return found;
-  }
-
   // // createTask(title: string, description: string): Task {
   // //   const task: Task = {
   // //     id: uuid(),
@@ -103,5 +91,19 @@ export class TasksService {
   //   return task;
   // }
 
+  // With Database TypeOrm //
 
+  async getTaskById(id: string): Promise<Task> {
+    const found = await this.tasksRepository.findOne(id);
+
+    if (!found) {
+      throw new NotFoundException(`Task with ID "${id}" not found`);
+    }
+
+    return found;
+  }
+
+  createTask(createTaskDto: CreateTaskDto): Promise<Task> {
+    return this.tasksRepository.createTask(createTaskDto);
+  }
 }

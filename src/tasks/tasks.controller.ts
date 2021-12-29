@@ -31,11 +31,6 @@ export class TasksController {
   //   }
   // }
 
-  @Get('/:id')
-  getTaskbyId(@Param('id') id: string): Promise<Task> {
-    return this.tasksService.getTaskById(id);
-   }
-
   // //http://localhost:3000/tasks/lsjflsdfksf3242
   // @Get('/:id')
   // getTaskById(@Param('id') id: string): Task {
@@ -73,4 +68,17 @@ export class TasksController {
   //   const {status} = UpdateTaskStatusDto;
   //   return this.tasksService.updateTaskStatus(id, status);
   // }
+
+
+  // With Database TypeOrm //
+
+  @Get('/:id')
+  getTaskbyId(@Param('id') id: string): Promise<Task> {
+    return this.tasksService.getTaskById(id);
+   }
+
+   @Post()
+   createTask(@Body() createTaskDto: CreateTaskDto): Promise<Task> {
+     return this.tasksService.createTask(createTaskDto);
+   }
 }
