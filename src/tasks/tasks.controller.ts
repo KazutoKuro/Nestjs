@@ -72,6 +72,11 @@ export class TasksController {
 
   // With Database TypeOrm //
 
+  @Get()
+  getTasks(@Query() filterDto: GetTasksFilterDto): Promise<Task[]> {
+    return this.tasksService.getTasks(filterDto);
+  }
+
   @Get('/:id')
   getTaskbyId(@Param('id') id: string): Promise<Task> {
     return this.tasksService.getTaskById(id);

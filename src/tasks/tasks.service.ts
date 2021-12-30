@@ -93,6 +93,10 @@ export class TasksService {
 
   // With Database TypeOrm //
 
+    getTasks(filterDto: GetTasksFilterDto): Promise<Task[]> {
+      return this.tasksRepository.getTasks(filterDto);
+    }
+
   async getTaskById(id: string): Promise<Task> {
     const found = await this.tasksRepository.findOne(id);
 
