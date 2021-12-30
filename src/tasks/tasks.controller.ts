@@ -9,7 +9,7 @@ import {
   Query,
 } from '@nestjs/common';
 import { CreateTaskDto } from './dto/create-task.dto';
-import { TaskStatus } from './task-statue.enum';
+import { TaskStatus } from './task-status.enum';
 import { TasksService } from './tasks.service';
 import { GetTasksFilterDto } from './dto/get-tasks-filter.dto';
 import { UpdateTaskStatusDto } from './dto/update-task-status.dto';
@@ -85,5 +85,14 @@ export class TasksController {
    @Delete('/:id')
   deleteTask(@Param('id') id: string): Promise<void> {
     return this.tasksService.deleteTask(id);
+  }
+
+  @Patch('/:id/status')
+  updateTaskStatus(
+    @Param('id') id: string, 
+    @Body() UpdateTaskStatusDto: UpdateTaskStatusDto,
+  ): Promise<Task> {
+    const {status} = UpdateTaskStatusDto;
+    return this.tasksService.updateTaskStatus(id, status);
   }
 }
