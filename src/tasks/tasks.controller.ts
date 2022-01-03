@@ -67,44 +67,47 @@ export class TasksController {
 
   // @Patch('/:id/status')
   // updateTaskStatus(
-  //   @Param('id') id: string, 
+  //   @Param('id') id: string,
   //   @Body() UpdateTaskStatusDto: UpdateTaskStatusDto,
   // ): Task {
   //   const {status} = UpdateTaskStatusDto;
   //   return this.tasksService.updateTaskStatus(id, status);
   // }
 
-
   // With Database TypeOrm //
 
   @Get()
-  getTasks(@Query() filterDto: GetTasksFilterDto): Promise<Task[]> {
-    return this.tasksService.getTasks(filterDto);
+  getTasks(
+    @Query() filterDto: GetTasksFilterDto,
+    @GetUser() user: User,
+  ): Promise<Task[]> {
+    return this.tasksService.getTasks(filterDto, user);
   }
 
   @Get('/:id')
   getTaskbyId(@Param('id') id: string): Promise<Task> {
     return this.tasksService.getTaskById(id);
-   }
+  }
 
-   @Post()
-   createTask(@Body() createTaskDto: CreateTaskDto,
-   @GetUser() user: User,
-   ): Promise<Task> {
-     return this.tasksService.createTask(createTaskDto, user);
-   }
+  @Post()
+  createTask(
+    @Body() createTaskDto: CreateTaskDto,
+    @GetUser() user: User,
+  ): Promise<Task> {
+    return this.tasksService.createTask(createTaskDto, user);
+  }
 
-   @Delete('/:id')
+  @Delete('/:id')
   deleteTask(@Param('id') id: string): Promise<void> {
     return this.tasksService.deleteTask(id);
   }
 
   @Patch('/:id/status')
   updateTaskStatus(
-    @Param('id') id: string, 
+    @Param('id') id: string,
     @Body() UpdateTaskStatusDto: UpdateTaskStatusDto,
   ): Promise<Task> {
-    const {status} = UpdateTaskStatusDto;
+    const { status } = UpdateTaskStatusDto;
     return this.tasksService.updateTaskStatus(id, status);
   }
 }
