@@ -28,4 +28,5 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
   controllers: [AuthController],
   exports: [JwtStrategy, PassportModule],
 })
+
 export class AuthModule {}
